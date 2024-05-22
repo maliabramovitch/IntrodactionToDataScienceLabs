@@ -89,6 +89,6 @@ for row in data.itertuples():
         data2.loc[away_team, 'Points'] += 1
         data2.loc[away_team, 'GF'] += away_score
         data2.loc[away_team, 'GA'] += home_score
-data2.sort_values(inplace=True, by=['Wins', 'Ties', 'Losses'], axis='rows', ascending=False)
+data2.sort_values(inplace=True, by=['Points'], axis='rows', ascending=False)
 data2.to_csv('soccer_result.csv')
 print(data2)
