@@ -31,7 +31,6 @@ else:
     print(f"The max score for all teams: {home_team} (Home) with {home_score} goals against {away_team} (Away)")
 print()
 
-
 # QU04
 home_mean_score = data['Goals_home'].mean()
 away_mean_score = data['Goals_away'].mean()
@@ -60,24 +59,36 @@ print('--- QU 07 ---')
 print(homes)
 print()
 
-
 """
 PART 02
 """
 print('--- PART 2 ---')
-data2 = pd.DataFrame(index=alls.index, columns=['Wins', 'Ties', 'Losses'])
+data2 = pd.DataFrame(index=alls.index, columns=['Wins', 'Ties', 'Losses', 'GF', 'GA', 'Points'])
 data2.fillna(0, inplace=True)
 for row in data.itertuples():
     home_team, away_team, home_score, away_score = row[1], row[2], row[3], row[4]
 
     if home_score > away_score:
         data2.loc[home_team, 'Wins'] += 1
+        data2.loc[home_team, 'GF'] += home_score
+        data2.loc[home_team, 'Points'] += 3
         data2.loc[away_team, 'Losses'] += 1
+        data2.loc[away_team, 'GA'] += home_score
     elif home_score < away_score:
         data2.loc[away_team, 'Wins'] += 1
+        data2.loc[away_team, 'GF'] += away_score
+        data2.loc[away_team, 'Points'] += 3
         data2.loc[home_team, 'Losses'] += 1
+        data2.loc[home_team, 'GA'] += away_score
     else:
         data2.loc[home_team, 'Ties'] += 1
+        data2.loc[home_team, 'Points'] += 1
+        data2.loc[home_team, 'GF'] += home_score
+        data2.loc[home_team, 'GA'] += away_score
         data2.loc[away_team, 'Ties'] += 1
-
+        data2.loc[away_team, 'Points'] += 1
+        data2.loc[away_team, 'GF'] += away_score
+        data2.loc[away_team, 'GA'] += home_score
+data2.sort_values(inplace=True, by=['Wins', 'Ties', 'Losses'], axis='rows', ascending=False)
+data2.to_csv('soccer_result.csv')
 print(data2)
