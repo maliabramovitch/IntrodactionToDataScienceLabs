@@ -23,7 +23,7 @@ print(v.shape)
 print(v.ndim)
 print()
 
-# 07
+# lab07
 v = np.array([[1, 2, 3, 4, 5, 6]])
 print(v)
 print(v.shape)

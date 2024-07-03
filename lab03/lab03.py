@@ -55,7 +55,7 @@ print()
 
 # QU07
 homes = data.groupby('Home').apply(lambda row: (row['Goals_home'] + row['Goals_away']).sum())
-print('--- QU 07 ---')
+print('--- QU lab07 ---')
 print(homes)
 print()
 
